@@ -16,4 +16,12 @@ public class Vertice {
     public String getRotulo(){
         return this.rotulo;
     }
+    
+    public void addGrau(){
+        grau++;
+    }
+    
+    public int getGrau(){
+        return grau;
+    }
 }
