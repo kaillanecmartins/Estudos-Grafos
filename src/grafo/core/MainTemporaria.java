@@ -69,5 +69,19 @@ public class MainTemporaria {
         }
         System.out.println("");
 
+        Grafo arvore = g.arvoreGeradoraPorProfundidade();
+        System.out.println();
+        System.out.println("--- Árvore geradora ---");
+        System.out.println("Vértices");
+        for (Vertice v : arvore.getVertices()) {
+            System.out.println("\t" + v.getRotulo());
+        }
+        System.out.println("Arestas");
+        for (Vertice v : arvore.getVertices()) {
+            for (Vertice adj : arvore.getAdjacencias(v.getRotulo())) {
+                System.out.println("\t" + v.getRotulo() + adj.getRotulo());
+            }
+        }
+
     }
 }
