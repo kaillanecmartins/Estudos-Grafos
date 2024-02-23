@@ -43,20 +43,37 @@ public class Grafo {
         return this.vertices;
     }
     
+    public int getPeso(String rotuloVerticeInicial, String rotuloVerticeFinal) {
+        int indiceVerticeInicial = rotulosEmIndices.get(rotuloVerticeInicial);
+        int indiceVerticeFinal = rotulosEmIndices.get(rotuloVerticeFinal);
+        return matrizAdjacencia.getPeso(indiceVerticeInicial,
+                indiceVerticeFinal);
+    }
+    
+    public Map<String, Integer> getRotulosEmIndices() {
+        return rotulosEmIndices;
+    }
+
+    public MatrizAdjacencia getMatrizAdjacencia() {
+        return matrizAdjacencia;
+    }
+    
     public Vertice getVertice(String rotulo){
         this.existeVerticeOrThrow(rotulo);
         int indice = this.rotulosEmIndices.get(rotulo);
         return this.vertices.get(indice);
     }
     
-    public void conectarVertices(String rotuloVerticeInicial, String rotuloVerticeFinal) throws Exception{
-        if(!this.existeVertice(rotuloVerticeInicial) || !this.existeVertice(rotuloVerticeFinal)){
-            throw new Exception("Para adicionar um aresta ambos os vértices devem existir");
-        } 
+    public void conectarVertices(String rotuloVerticeInicial, String rotuloVerticeFinal, Integer peso) throws Exception {
+        if (!this.existeVertice(rotuloVerticeInicial)
+                || !this.existeVertice(rotuloVerticeFinal)) {
+            throw new Exception(
+            "Para adicionar uma aresta ambos os vértices devem existir.");
+        }
         criarMatrizAdjacencia();
         int indiceVerticeFinal = this.rotulosEmIndices.get(rotuloVerticeInicial);
         int indiceVerticeInicial = this.rotulosEmIndices.get(rotuloVerticeFinal);
-        this.matrizAdjacencia.adicionarAresta(indiceVerticeInicial, indiceVerticeFinal);
+        this.matrizAdjacencia.adicionarAresta(indiceVerticeInicial, indiceVerticeFinal, peso);
     }
     
     public List<Vertice> getAdjacencias(String vertice){
@@ -65,7 +82,7 @@ public class Grafo {
         return this.matrizAdjacencia.getAdjacencias(indiceVertice);
     }
     
-    private boolean existeVertice(String rotuloVertice){
+    public boolean existeVertice(String rotuloVertice){
         int indice = this.rotulosEmIndices.get(rotuloVertice);
         return this.vertices.get(indice) != null ? true : false;
     }
@@ -77,9 +94,27 @@ public class Grafo {
         return true;
     }
     
-    private void criarMatrizAdjacencia(){
-        if(this.matrizAdjacencia == null){
+    public void conectarVertices(String rotuloVerticeInicial, String rotuloVerticeFinal) throws Exception {
+        if (!this.existeVertice(rotuloVerticeInicial)
+                || !this.existeVertice(rotuloVerticeFinal)) {
+            throw new Exception("Para adicionar uma aresta ambos os vértices devem existir.");
+ }
+        criarMatrizAdjacencia();
+        int indiceVerticeFinal = this.rotulosEmIndices.get(rotuloVerticeInicial);
+        int indiceVerticeInicial = this.rotulosEmIndices.get(rotuloVerticeFinal);
+        this.matrizAdjacencia.adicionarAresta(indiceVerticeInicial,indiceVerticeFinal);
+    }
+    
+    public void criarMatrizAdjacencia() throws Exception {
+        if (this.matrizAdjacencia == null) {
             this.matrizAdjacencia = new MatrizAdjacencia(new ArrayList<Vertice>(this.vertices));
+        } else {
+            int qtdVerticesNaMatriz = this.matrizAdjacencia.getQtdVertices();
+            if (this.vertices.size() != qtdVerticesNaMatriz) {
+                MatrizAdjacencia matrizAdjacenciaTemp = new MatrizAdjacencia(this.vertices);
+                this.matrizAdjacencia.copiaValoresPara(matrizAdjacenciaTemp);
+                this.matrizAdjacencia = matrizAdjacenciaTemp;
+            }
         }
     }
     

@@ -6,7 +6,7 @@ import grafo.search.BuscaEmProfundidade;
 
 public class MainTemporaria {
     public static void main(String[] args) throws Exception {
-        Grafo g = new Grafo();
+        /*Grafo g = new Grafo();
         
         g.adicionarVertice("A");
         g.adicionarVertice("B");
@@ -80,6 +80,95 @@ public class MainTemporaria {
         for (Vertice v : arvore.getVertices()) {
             for (Vertice adj : arvore.getAdjacencias(v.getRotulo())) {
                 System.out.println("\t" + v.getRotulo() + adj.getRotulo());
+            }
+        }*/
+        
+        //novo teste com dígrafo
+        
+        Digrafo digrafo = new Digrafo();
+        digrafo.adicionarVertice("RJ");
+        digrafo.adicionarVertice("SP");
+        digrafo.adicionarVertice("BH");
+        digrafo.adicionarVertice("PT");
+        digrafo.adicionarVertice("OS");
+        digrafo.adicionarVertice("SV");
+        digrafo.adicionarVertice("CR");
+        digrafo.adicionarVertice("PA");
+        digrafo.conectarVertices("RJ", "SP", null);
+        digrafo.conectarVertices("RJ", "BH", null);
+        digrafo.conectarVertices("RJ", "PT", null);
+        digrafo.conectarVertices("RJ", "PA", null);
+        digrafo.conectarVertices("SP", "BH", null);
+        digrafo.conectarVertices("SP", "OS", null);
+        digrafo.conectarVertices("SP", "SV", null);
+        digrafo.conectarVertices("SP", "CR", null);
+        digrafo.conectarVertices("SP", "PA", null);
+        digrafo.conectarVertices("SV", "PA", null);
+        digrafo.conectarVertices("CR", "PA", null);
+        Grafo arvore = digrafo.arvoreGeradoraPorProfundidade("PT");
+        System.out.println("--- Árvore geradora via busca por profundidade usando raiz-- -");
+        System.out.println();
+        
+        for (Vertice v : arvore.getVertices()) {
+            System.out.print("Vértice " + v.getRotulo() + " conectado a: ");
+            List<Vertice> adjacencias = arvore.getAdjacencias(v.getRotulo());
+            if (!adjacencias.isEmpty()) {
+                for (Vertice adj : adjacencias) {
+                    System.out.print(adj.getRotulo() + " ");
+                }
+            } else {
+                System.out.print("-");
+            }
+            System.out.println();
+        }
+
+        //grafo ponderado
+        
+        Grafo grafoPonderado = new Grafo();
+        grafoPonderado.adicionarVertice("A");
+        grafoPonderado.adicionarVertice("B");
+        grafoPonderado.adicionarVertice("C");
+        grafoPonderado.adicionarVertice("D");
+        grafoPonderado.adicionarVertice("E");
+        grafoPonderado.conectarVertices("A", "B", 12);
+        grafoPonderado.conectarVertices("C", "E", 10);
+        grafoPonderado.conectarVertices("B", "D", 5);
+        grafoPonderado.conectarVertices("D", "A", 2);
+        grafoPonderado.conectarVertices("B", "E", 1);
+        grafoPonderado.conectarVertices("A", "C", 7);
+        System.out.println("Grafo Ponderado");
+        int peso = grafoPonderado.getPeso("A", "C");
+        System.out.println("Peso da aresta AC: " + peso);
+        peso = grafoPonderado.getPeso("B", "E");
+        System.out.println("Peso da aresta BE: " + peso);
+
+        
+       //digrafo ponderado
+       
+        Digrafo digrafoPonderado = new Digrafo();
+        digrafoPonderado.adicionarVertice("X");
+        digrafoPonderado.adicionarVertice("Y");
+        digrafoPonderado.adicionarVertice("Z");
+        digrafoPonderado.adicionarVertice("W");
+        digrafoPonderado.adicionarVertice("V");
+        digrafoPonderado.conectarVertices("X", "V", 44);
+        digrafoPonderado.conectarVertices("Y", "W", 37);
+        digrafoPonderado.conectarVertices("W", "Z", 38);
+        digrafoPonderado.conectarVertices("X", "V", 16);
+        digrafoPonderado.conectarVertices("V", "X", 22);
+        digrafoPonderado.conectarVertices("V", "Y", 57);
+        System.out.println("Dígrafo Ponderado");
+        System.out.println("Vértices:");
+        for (Vertice v : digrafoPonderado.getVertices()) {
+            System.out.println("\t" + v.getRotulo());
+        }
+        System.out.println();
+        System.out.println("Arestas:");
+        for (Vertice v : digrafoPonderado.getVertices()) {
+            for (Vertice adj : digrafoPonderado.getAdjacencias(v.getRotulo())) {
+                System.out.println("\t" + v.getRotulo() + adj.getRotulo()
+                        + " : " + digrafoPonderado.getPeso(v.getRotulo(),
+                                adj.getRotulo()));
             }
         }
 
