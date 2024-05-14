@@ -3,6 +3,9 @@ package grafo.core;
 import java.util.List;
 import grafo.search.BuscaEmLargura;
 import grafo.search.BuscaEmProfundidade;
+import grafo.util.AlgoritmoDijkstra;
+import java.util.Map;
+import java.util.Set;
 
 public class MainTemporaria {
     public static void main(String[] args) throws Exception {
@@ -123,7 +126,7 @@ public class MainTemporaria {
         }
 
         //grafo ponderado
-        
+        /*
         Grafo grafoPonderado = new Grafo();
         grafoPonderado.adicionarVertice("A");
         grafoPonderado.adicionarVertice("B");
@@ -141,7 +144,7 @@ public class MainTemporaria {
         System.out.println("Peso da aresta AC: " + peso);
         peso = grafoPonderado.getPeso("B", "E");
         System.out.println("Peso da aresta BE: " + peso);
-
+        */
         
        //digrafo ponderado
        
@@ -171,6 +174,22 @@ public class MainTemporaria {
                                 adj.getRotulo()));
             }
         }
+        
+        //Grafo grafo = new Grafo();
+        //adição de vértices
+        //criação de arestas com peso
+        Map<String, AlgoritmoDijkstra.Info> menoresCaminhos
+                = AlgoritmoDijkstra.getInstance().processar("X", "Y", digrafoPonderado);
+        Set<String> keys = menoresCaminhos.keySet();
+        for (String key : keys) {
+            AlgoritmoDijkstra.Info info = menoresCaminhos.get(key);
+            String predecessor = info.predecessor == null
+                    ? ""
+                    : info.predecessor.getRotulo();
+            System.out.println(
+                    key + " : " + info.distancia + " - " + predecessor);
+        }
 
+        
     }
 }
