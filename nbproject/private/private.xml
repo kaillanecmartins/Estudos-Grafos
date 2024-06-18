@@ -5,7 +5,9 @@
         <group>
             <file>file:/C:/Users/kaill/Documents/NetBeansProjects/Estudos_grafos/src/grafo/core/MainTemporaria.java</file>
             <file>file:/C:/Users/kaill/Documents/NetBeansProjects/Estudos_grafos/src/grafo/util/AlgoritmoDijkstra.java</file>
+            <file>file:/C:/Users/kaill/Documents/NetBeansProjects/Estudos_grafos/src/grafo/util/AlgoritmoPrim.java</file>
             <file>file:/C:/Users/kaill/Documents/NetBeansProjects/Estudos_grafos/src/grafo/core/Digrafo.java</file>
+            <file>file:/C:/Users/kaill/Documents/NetBeansProjects/Estudos_grafos/src/grafo/util/AlgoritmoFloydWarshall.java</file>
         </group>
     </open-files>
 </project-private>
